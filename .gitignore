@@ -1,6 +1,9 @@
 HELP.md
-.DS_Store
 target/
+.DS_Store
+uploads/
+*.eml
+*.userlibraries
 .mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

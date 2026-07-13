@@ -1,16 +1,18 @@
-FROM maven:3.9.9-eclipse-temurin-21 AS build
-WORKDIR /app
+FROM maven:3.9.9-eclipse-temurin-17 AS build
 
+WORKDIR /app
 COPY pom.xml .
 RUN mvn -B dependency:go-offline
 
 COPY src ./src
 RUN mvn -B package -DskipTests
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:17-jre
+
 WORKDIR /app
+RUN mkdir -p uploads
 
-COPY --from=build /app/target/backend-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/alumni-connect-portal-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
-
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
